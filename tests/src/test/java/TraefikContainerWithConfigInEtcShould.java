@@ -7,6 +7,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testcontainers.containers.Network;
+import org.testcontainers.containers.wait.strategy.Wait;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -24,11 +25,10 @@ public class TraefikContainerWithConfigInEtcShould {
 
         _traefikContainer = new GenericContainerEx<>(new TraefikDockerTagResolver())
                 .withNetwork(_network)
-                .withExposedPorts(8080)
                 .withRelativeFileSystemBind(Paths.get("..", "example", "traefik", "traefik.yaml"), "/etc/traefik/traefik.yaml")
                 .withRelativeFileSystemBind(Paths.get("..", "example", "traefik", "nginx.yaml"), "/nginx.yaml")
                 .withImagePullPolicy(PullPolicyEx.never())
-                .waitingFor(WaitEx.forS6OverlayStart());
+                .waitingFor(Wait.forHttp("/nginx"));
 
         _nginxContainer = new GenericContainerEx<>("nginx")
                 .withNetwork(_network)
