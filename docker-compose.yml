@@ -1,6 +1,21 @@
 version: "3.7"
 services:
-  $$IMAGE_NAME$$:
+  nginx:
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./example/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+  traefik:
     build: .
-    image: homecentr/$$IMAGE_NAME$$
-    restart: unless-stopped
+    image: homecentr/traefik:local
+    ports:
+      - "80:80"
+    volumes:
+      - ./example/traefik/traefik.yaml:/config/traefik.yaml:ro
+      - ./example/traefik/nginx.yaml:/nginx.yaml:ro
+
+networks:
+  default:
+    driver: bridge  
