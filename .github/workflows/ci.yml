@@ -6,7 +6,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_NAME: "homecentr/$$IMAGE_NAME$$"
+  IMAGE_NAME: "homecentr/traefik"
 
 jobs:
   build:
@@ -30,7 +30,7 @@ jobs:
         run: docker build . -t ${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.docker_tag }}
 
       - name: Test Docker image
-        run: cd tests && sudo gradle test --info -Dimage_tag=${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.docker_tag }}
+        run: cd tests && sudo gradle test --info -Ddocker_image_tag=${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.docker_tag }}
 
       - name: Scan with Phonito Security
         uses: phonito/phonito-scanner-action@master

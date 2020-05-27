@@ -1,0 +1,14 @@
+http:
+  routers:
+    nginx-file:
+      entryPoints:
+      - http
+      service: nginx
+      rule: Path(`/nginx`)
+
+  services:
+    nginx:
+      loadBalancer:
+        servers:
+        - url: http://nginx:80/
+        passHostHeader: true

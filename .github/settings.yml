@@ -1,6 +1,6 @@
 # https://developer.github.com/v3/repos/#edit
 repository:
-  name: docker-$$IMAGE_NAME$$
+  name: docker-traefik
   description: ""
   homepage: https://homecentr.github.io/
   private: false
@@ -21,7 +21,7 @@ branches:
     protection:
       required_status_checks:
         strict: true
-        contexts: [ ".github/workflows/ci.yml" ]
+        contexts: [ "build" ]
       required_pull_request_reviews: null
       enforce_admins: false
       restrictions:

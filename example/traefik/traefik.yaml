@@ -1,0 +1,11 @@
+providers:
+  file:
+    filename: /nginx.yaml
+
+entryPoints:
+  http:
+    address: ":80"
+
+api:
+  dashboard: true
+  insecure: true  

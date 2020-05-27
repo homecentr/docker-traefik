@@ -5,7 +5,7 @@ on:
       - master
 
 env:
-  IMAGE_NAME: "homecentr/$$IMAGE_NAME$$"
+  IMAGE_NAME: "homecentr/traefik"
 
 jobs:
   build:
@@ -40,7 +40,7 @@ jobs:
 
       - name: Test Docker image
         if: env.RELEASE_VERSION != ''
-        run: cd tests && sudo gradle test -Dimage_tag=${{ env.IMAGE_NAME }}:${{ env.RELEASE_VERSION }}
+        run: cd tests && sudo gradle test -Ddocker_image_tag=${{ env.IMAGE_NAME }}:${{ env.RELEASE_VERSION }}
       
       - name: Scan with Phonito Security
         if: env.RELEASE_VERSION != ''
