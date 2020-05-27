@@ -13,8 +13,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./example/traefik/traefik.yml:/config/traefik.yml:ro
-      - ./example/traefik/nginx.yml:/nginx.yml:ro
+      - ./example/traefik/traefik.yaml:/config/traefik.yaml:ro
+      - ./example/traefik/nginx.yaml:/nginx.yaml:ro
 
 networks:
   default:

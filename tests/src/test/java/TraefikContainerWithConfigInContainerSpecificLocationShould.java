@@ -6,7 +6,10 @@ import io.homecentr.testcontainers.images.PullPolicyEx;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.Network;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
 import java.io.IOException;
@@ -19,6 +22,8 @@ public class TraefikContainerWithConfigInContainerSpecificLocationShould {
     private static GenericContainerEx _nginxContainer;
     private static Network _network;
 
+    private static final Logger logger = LoggerFactory.getLogger(TraefikContainerWithConfigInEtcShould.class);
+
     @BeforeClass
     public static void before() {
         _network = Network.newNetwork();
@@ -29,7 +34,7 @@ public class TraefikContainerWithConfigInContainerSpecificLocationShould {
                 .withRelativeFileSystemBind(Paths.get("..", "example", "traefik", "traefik.yaml"), "/config/traefik.yaml")
                 .withRelativeFileSystemBind(Paths.get("..", "example", "traefik", "nginx.yaml"), "/nginx.yaml")
                 .withImagePullPolicy(PullPolicyEx.never())
-                .waitingFor(Wait.forHttp("/nginx"));
+                .waitingFor(Wait.forHttp("/ping").forPort(80).forStatusCode(200));
 
         _nginxContainer = new GenericContainerEx<>("nginx")
                 .withNetwork(_network)
@@ -37,7 +42,9 @@ public class TraefikContainerWithConfigInContainerSpecificLocationShould {
                 .withRelativeFileSystemBind(Paths.get("..", "example", "nginx", "nginx.conf"), "/etc/nginx/conf.d/default.conf");
 
         _nginxContainer.start();
+
         _traefikContainer.start();
+        _traefikContainer.followOutput(new Slf4jLogConsumer(logger));
     }
 
     @AfterClass

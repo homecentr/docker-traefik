@@ -6,6 +6,9 @@ entryPoints:
   http:
     address: ":80"
 
+ping:
+  entryPoint: "http"
+
 api:
   dashboard: true
   insecure: true  
