@@ -1,6 +1,6 @@
 FROM traefik:v2.2.1 as traefik
 
-FROM homecentr/base:2.4.0-alpine
+FROM homecentr/base:2.4.3-alpine
 
 ENV TRAEFIK_ARGS=""
 ENV XDG_CONFIG_HOME="/config"
