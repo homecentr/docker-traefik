@@ -1,4 +1,4 @@
-FROM traefik:v2.2.1 as traefik
+FROM traefik:v2.4.9 as traefik
 
 FROM homecentr/base:3.0.0-alpine
 
@@ -9,7 +9,7 @@ COPY --from=traefik /usr/local/bin/traefik /usr/local/bin/traefik
 COPY --from=traefik /etc/ssl/certs /etc/ssl/certs
 
 # Grant the named process to open a well-known port (1-1024) which normally requires root permissions
-RUN apk add --no-cache libcap=2.27-r0 && \
+RUN apk add --no-cache libcap=2.50-r0 && \
     setcap 'cap_net_bind_service=+ep' /usr/local/bin/traefik
 
 COPY ./fs/ /
