@@ -1,4 +1,4 @@
-FROM traefik:v2.4.9 as traefik
+FROM traefik:v2.4.11 as traefik
 
 FROM homecentr/base:3.0.0-alpine
 
