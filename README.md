@@ -25,6 +25,7 @@ services:
 |------|---------------|-------------|
 | PUID | 7077 | UID of the user traefik should be running as. |
 | PGID | 7077 | GID of the user traefik should be running as. |
+| PUID_ADDITIONAL_GROUPS | | Dictionary of additional groups the PUID user should be a member of in the container. Expected format is `gid:name,gid:name`. You can use up to 15 groups (unix limit). |
 | TRAEFIK_ARGS | | Additional arguments to pass to Traefic. |
 
 ## Exposed ports
