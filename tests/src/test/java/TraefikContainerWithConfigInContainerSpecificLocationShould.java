@@ -34,6 +34,7 @@ public class TraefikContainerWithConfigInContainerSpecificLocationShould {
                 .withRelativeFileSystemBind(Paths.get("..", "example", "traefik", "traefik.yaml"), "/config/traefik.yaml")
                 .withRelativeFileSystemBind(Paths.get("..", "example", "traefik", "nginx.yaml"), "/nginx.yaml")
                 .withImagePullPolicy(PullPolicyEx.never())
+                .withExposedPorts(80)
                 .waitingFor(Wait.forHttp("/ping").forPort(80).forStatusCode(200));
 
         _nginxContainer = new GenericContainerEx<>("nginx")
