@@ -1,4 +1,4 @@
-FROM traefik:v2.4.11 as traefik
+FROM traefik:v2.4.13 as traefik
 
 FROM ghcr.io/homecentr/base:3.1.1-alpine
 
